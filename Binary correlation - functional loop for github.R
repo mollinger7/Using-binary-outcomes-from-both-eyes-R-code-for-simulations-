@@ -113,7 +113,7 @@ while (comp < loopsize) {
     UCL <- exp(coef(LogOne)["Expo"] + z*SE)
   )
   
-  #Per subject chi-square (for p-value) and OR
+  #Per subject logistic regression
   LogSubj <- glm(OutcT ~ Expo, family = binomial, data=df)
   LgMSubj <- summary(LogSubj)
   
@@ -124,7 +124,7 @@ while (comp < loopsize) {
     UCL <- exp(coef(LogSubj)["Expo"] + z*SE)
   )
   
-  #Both eyes' chi-square (for p-value) and OR
+  #Both eyes' logistic regression
   LogBoth <- glm(Outcome ~ Expo, family = binomial, data=dflong)
   LgMBoth <- summary(LogBoth)
   
@@ -135,7 +135,7 @@ while (comp < loopsize) {
     UCL <- exp(coef(LogBoth)["Expo"] + z*SE)
   )
   
-  #GLMM model and extraction
+  #GLMM model (logistic mixed-effects model) and extraction
   GLMM <- glmer(Outcome ~ Expo + (1 | ID),
                 data    = dflong,
                 family  = binomial(link = "logit")
